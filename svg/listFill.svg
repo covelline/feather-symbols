@@ -1,0 +1,8 @@
+<svg width="280" height="280" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(42 51)" fill="#000" fill-rule="evenodd">
+        <ellipse cx="15" cy="14.973" rx="15" ry="14.973"/>
+        <ellipse cx="15" cy="88.973" rx="15" ry="14.973"/>
+        <ellipse cx="15" cy="163.973" rx="15" ry="14.973"/>
+        <path d="M63.016 22h129.576a7.5 7.5 0 0 0 0-15H63.016a7.5 7.5 0 1 0 0 15zM63.016 97h129.576a7.5 7.5 0 0 0 0-15H63.016a7.5 7.5 0 1 0 0 15zM63.016 171h129.576a7.5 7.5 0 0 0 0-15H63.016a7.5 7.5 0 1 0 0 15z" fill-rule="nonzero"/>
+    </g>
+</svg>
