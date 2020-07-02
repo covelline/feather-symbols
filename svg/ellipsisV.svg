@@ -1,7 +1,5 @@
-<svg width="284" height="284" viewBox="0 0 284 284" xmlns="http://www.w3.org/2000/svg">
-    <g transform="translate(119 53)" fill="#000" fill-rule="evenodd">
-        <ellipse cx="23" cy="22.949" rx="23" ry="22.949"/>
-        <ellipse cx="23" cy="87.205" rx="23" ry="22.949"/>
-        <ellipse cx="23" cy="156.051" rx="23" ry="22.949"/>
-    </g>
+<svg width="284" height="284" viewBox="0 0 284 284" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M142 98.8974C154.703 98.8974 165 88.6229 165 75.9487C165 63.2745 154.703 53 142 53C129.297 53 119 63.2745 119 75.9487C119 88.6229 129.297 98.8974 142 98.8974Z" fill="black"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M142 163.154C154.703 163.154 165 152.879 165 140.205C165 127.531 154.703 117.256 142 117.256C129.297 117.256 119 127.531 119 140.205C119 152.879 129.297 163.154 142 163.154Z" fill="black"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M142 232C154.703 232 165 221.726 165 209.051C165 196.377 154.703 186.103 142 186.103C129.297 186.103 119 196.377 119 209.051C119 221.726 129.297 232 142 232Z" fill="black"/>
 </svg>
