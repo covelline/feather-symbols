@@ -4,12 +4,11 @@ const StringDecoder = require("string_decoder").StringDecoder
 const SVGIcons2SVGFontStream = require("svgicons2svgfont")
 const svg2ttf = require("svg2ttf")
 const SVGO = require("svgo")
-const { Readable } = require("stream")
 
-const dir = "svg"
+const inputDir = "svg"
+const optimizedDir = "svg-optimized"
 const buildDir = process.argv[2] || "build"
 const fontName = "feather-symbols"
-const optimizeSVG = true
 
 const svgicons2svgfontOptions = {
   fontFamilyName: fontName,
@@ -17,34 +16,40 @@ const svgicons2svgfontOptions = {
   normalize: true,
 }
 
-const files = fs
-  .readdirSync(dir)
-  .filter((f) => f.endsWith(".svg"))
-  .map((f) => path.join(dir, f))
+const findSVGFiles = (dir) => 
+  fs.readdirSync(dir)
+    .filter((f) => f.endsWith(".svg"))
+    .map((f) => path.join(dir, f))
 
-const createSvgStream = async (file, optimize) => {
-  if (optimize) {
+const optimize = async (inputDir, outputDir) => {
+  const optimizeSVG = async (file) => {
     const svg = fs.readFileSync(file, "utf8")
     const svgo = new SVGO()
     const res = await svgo.optimize(svg)
-    return Readable.from(res.data)
-  } else {
-    return fs.createReadStream(file)
+    const dest = path.join(outputDir, path.basename(file))
+    fs.writeFileSync(dest, res.data,)
+    return dest
   }
+
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir)
+  }
+
+  return await Promise.all(findSVGFiles(inputDir).map(optimizeSVG))
 }
 
-Promise.all(
-  files.map(async (file) => {
-    const stream = await createSvgStream(file, optimizeSVG)
-    const name = path.basename(file, ".svg")
+optimize(inputDir, optimizedDir)
+  .then((files) => Promise.all(files.map(async (file) => {
+      const stream = fs.createReadStream(file)
+      const name = path.basename(file, ".svg")
 
-    stream.metadata = {
-      unicode: [name],
-      name: name,
-    }
-    return stream
-  })
-)
+      stream.metadata = {
+        unicode: [name],
+        name: name,
+      }
+      return stream
+    })
+  ))
   .then((streams) => {
     return new Promise((resolve) => {
       let font = ""
@@ -78,7 +83,7 @@ Promise.all(
       fs.mkdirSync(buildDir)
     }
 
-    return fs.promises.writeFile(
+    fs.writeFileSync(
       path.join(buildDir, `${fontName}.ttf`),
       fontFile
     )
