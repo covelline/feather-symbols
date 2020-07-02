@@ -11,7 +11,7 @@ const buildDir = process.argv[2] || "build"
 const fontName = "feather-symbols"
 
 const svgicons2svgfontOptions = {
-  fontFamilyName: fontName,
+  fontName,
   fontHeight: 1024,
   normalize: true,
 }
