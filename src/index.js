@@ -13,6 +13,7 @@ const fontName = "feather-symbols"
 const svgicons2svgfontOptions = {
   fontName,
   fontHeight: 1024,
+  descent: 1024 * 0.15,
   normalize: true,
 }
 
