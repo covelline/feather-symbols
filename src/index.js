@@ -16,8 +16,9 @@ const svgicons2svgfontOptions = {
   normalize: true,
 }
 
-const findSVGFiles = (dir) => 
-  fs.readdirSync(dir)
+const findSVGFiles = (dir) =>
+  fs
+    .readdirSync(dir)
     .filter((f) => f.endsWith(".svg"))
     .map((f) => path.join(dir, f))
 
@@ -27,7 +28,7 @@ const optimize = async (inputDir, outputDir) => {
     const svgo = new SVGO()
     const res = await svgo.optimize(svg)
     const dest = path.join(outputDir, path.basename(file))
-    fs.writeFileSync(dest, res.data,)
+    fs.writeFileSync(dest, res.data)
     return dest
   }
 
@@ -39,17 +40,20 @@ const optimize = async (inputDir, outputDir) => {
 }
 
 optimize(inputDir, optimizedDir)
-  .then((files) => Promise.all(files.map(async (file) => {
-      const stream = fs.createReadStream(file)
-      const name = path.basename(file, ".svg")
+  .then((files) =>
+    Promise.all(
+      files.map(async (file) => {
+        const stream = fs.createReadStream(file)
+        const name = path.basename(file, ".svg")
 
-      stream.metadata = {
-        unicode: [name],
-        name: name,
-      }
-      return stream
-    })
-  ))
+        stream.metadata = {
+          unicode: [name],
+          name: name,
+        }
+        return stream
+      })
+    )
+  )
   .then((streams) => {
     return new Promise((resolve) => {
       let font = ""
@@ -83,8 +87,5 @@ optimize(inputDir, optimizedDir)
       fs.mkdirSync(buildDir)
     }
 
-    fs.writeFileSync(
-      path.join(buildDir, `${fontName}.ttf`),
-      fontFile
-    )
+    fs.writeFileSync(path.join(buildDir, `${fontName}.ttf`), fontFile)
   })
